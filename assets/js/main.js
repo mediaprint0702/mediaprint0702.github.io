@@ -12,3 +12,21 @@
     });
   });
 })();
+
+/* Scroll reveal animations */
+(function(){
+  const els = document.querySelectorAll('[data-animate]');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(e=>e.classList.add('in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(ent=>{
+      if(ent.isIntersecting){
+        ent.target.classList.add('in');
+        io.unobserve(ent.target);
+      }
+    });
+  }, {threshold: 0.12});
+  els.forEach(e=>io.observe(e));
+})();
